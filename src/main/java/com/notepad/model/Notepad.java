@@ -1,16 +1,18 @@
 package com.notepad.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 
 
 /**
  * @author jzhao
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@SuppressWarnings("unused")
 public class Notepad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +21,12 @@ public class Notepad {
     private String title;
 
     private String content;
+
+    @CreatedDate
+    private Long created;
+
+    @LastModifiedDate
+    private Long lastUpdated;
 
     public int getId() {
         return id;
@@ -42,5 +50,21 @@ public class Notepad {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
